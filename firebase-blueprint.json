@@ -1,0 +1,177 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Authenticated PLN CORPU platform user profile and organizational scope.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "maxLength": 254 },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "role": {
+          "type": "string",
+          "enum": ["super_admin", "corpu_admin", "directorate_admin", "department_admin", "unit_analyst", "reviewer", "executive_viewer"]
+        },
+        "primaryOrgId": { "type": "string", "maxLength": 128 },
+        "orgScopeIds": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "role", "primaryOrgId", "createdAt", "updatedAt"]
+    },
+    "OrganizationNode": {
+      "title": "Organization Node",
+      "description": "PLN hierarchical organizational unit (business segment, directorate, department, or work unit).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "slug": { "type": "string", "minLength": 2, "maxLength": 128, "pattern": "^[a-z0-9\\-]+$" },
+        "level": { "type": "string", "enum": ["segment", "directorate", "department", "unit"] },
+        "parentId": { "type": "string", "maxLength": 128 },
+        "businessSegmentId": { "type": "string", "maxLength": 128 },
+        "province": { "type": "string", "maxLength": 80 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "slug", "level", "businessSegmentId", "createdBy", "createdAt"]
+    },
+    "PestelIssue": {
+      "title": "PESTEL Strategic Issue",
+      "description": "Verified or draft strategic electricity sector issue mapped to PESTEL dimensions and an owning PLN organization.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 3, "maxLength": 240 },
+        "summary": { "type": "string", "minLength": 10, "maxLength": 4000 },
+        "sourceUrl": { "type": "string", "maxLength": 1024 },
+        "sourceTitle": { "type": "string", "maxLength": 300 },
+        "sourcePublishedAt": { "type": "string", "maxLength": 64 },
+        "categories": { "type": "array" },
+        "riskOrOpportunity": { "type": "string", "enum": ["risk", "opportunity", "both"] },
+        "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "classification": { "type": "string", "enum": ["public_shared", "internal_restricted", "confidential"] },
+        "status": { "type": "string", "enum": ["ai_draft", "in_review", "verified", "approved", "rejected"] },
+        "ownerOrgId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "impactAnalysis": { "type": "string", "maxLength": 4000 },
+        "province": { "type": "string", "maxLength": 80 },
+        "period": { "type": "string", "maxLength": 32 },
+        "createdBy": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "verifiedBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "summary", "categories", "severity", "classification", "status", "ownerOrgId", "createdBy", "createdAt", "updatedAt"]
+    },
+    "IssueOrganizationLink": {
+      "title": "Cross-Department Issue Link",
+      "description": "Connects a central PESTEL issue to an affected business segment, directorate, or department workspace.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "issueId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "ownerOrgId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "targetOrgId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "linkStatus": { "type": "string", "enum": ["ai_proposed", "in_review", "verified", "approved", "not_relevant"] },
+        "sharingApproved": { "type": "boolean" },
+        "departmentImpactNote": { "type": "string", "maxLength": 2000 },
+        "createdBy": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "issueId", "ownerOrgId", "targetOrgId", "linkStatus", "sharingApproved", "createdBy", "createdAt"]
+    },
+    "LearningAssessment": {
+      "title": "LNA/CCA/DNA/TNA Assessment",
+      "description": "Learning Value Chain analysis record (LNA, CCA, DNA, or TNA) linked to a verified PESTEL issue and organization.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "kind": { "type": "string", "enum": ["lna", "cca", "dna", "tna"] },
+        "issueId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "orgId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "title": { "type": "string", "minLength": 3, "maxLength": 240 },
+        "competencyName": { "type": "string", "maxLength": 200 },
+        "competencyCategory": { "type": "string", "enum": ["core", "technical", "behavioral"] },
+        "hasGapEvidence": { "type": "boolean" },
+        "currentLevel": { "type": "number" },
+        "targetLevel": { "type": "number" },
+        "participantCount": { "type": "number" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "status": { "type": "string", "enum": ["draft", "in_review", "verified", "approved"] },
+        "notes": { "type": "string", "maxLength": 3000 },
+        "createdBy": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "kind", "issueId", "orgId", "title", "hasGapEvidence", "status", "createdBy", "createdAt"]
+    },
+    "LearningRecommendation": {
+      "title": "Learning Recommendation",
+      "description": "Corporate learning program recommendation, learning path, and ADDIE mapping derived from verified LNA/TNA.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "assessmentId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "issueId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "orgId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "programTitle": { "type": "string", "minLength": 3, "maxLength": 240 },
+        "learningPath": { "type": "string", "maxLength": 240 },
+        "addieStage": { "type": "string", "enum": ["Analysis", "Design", "Development", "Implementation", "Evaluation"] },
+        "deliveryMethods": { "type": "array" },
+        "targetAudience": { "type": "string", "maxLength": 200 },
+        "estimatedParticipants": { "type": "number" },
+        "status": { "type": "string", "enum": ["ai_proposed", "in_review", "verified", "approved", "not_relevant"] },
+        "createdBy": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "assessmentId", "issueId", "orgId", "programTitle", "addieStage", "deliveryMethods", "status", "createdBy", "createdAt"]
+    },
+    "AuditLog": {
+      "title": "Audit Log Entry",
+      "description": "Immutable security and governance audit trail.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "actorUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "actorRole": { "type": "string", "maxLength": 64 },
+        "action": { "type": "string", "maxLength": 120 },
+        "resourceType": { "type": "string", "maxLength": 64 },
+        "resourceId": { "type": "string", "maxLength": 128 },
+        "orgId": { "type": "string", "maxLength": 128 },
+        "details": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "actorUid", "actorRole", "action", "resourceType", "resourceId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profiles and role/organization scope bindings."
+    },
+    "/organizations/{orgId}": {
+      "schema": { "$ref": "#/entities/OrganizationNode" },
+      "description": "PLN corporate university hierarchical organization directory."
+    },
+    "/pestel_issues/{issueId}": {
+      "schema": { "$ref": "#/entities/PestelIssue" },
+      "description": "PESTEL issues owned by a specific PLN organization with classification isolation."
+    },
+    "/issue_organization_links/{linkId}": {
+      "schema": { "$ref": "#/entities/IssueOrganizationLink" },
+      "description": "Cross-department issue linkage with explicit sharing approval flags."
+    },
+    "/learning_assessments/{assessmentId}": {
+      "schema": { "$ref": "#/entities/LearningAssessment" },
+      "description": "LNA, CCA, DNA, and TNA assessments scoped to owning organizations."
+    },
+    "/learning_recommendations/{recommendationId}": {
+      "schema": { "$ref": "#/entities/LearningRecommendation" },
+      "description": "Learning program recommendations and ADDIE paths."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Append-only governance and access audit log."
+    }
+  }
+}

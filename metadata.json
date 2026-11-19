@@ -1,0 +1,8 @@
+{
+  "name": "Remix PLN CORPU — Integrated Strategic PESTEL \u0026 Learning Needs Analytics",
+  "description": "Platform analitik strategis terintegrasi PLN Corporate University untuk pemetaan isu PESTEL lintas bidang bisnis dan departemen, Learning Need Analysis (LNA/CCA/DNA/TNA), serta rekomendasi pembelajaran korporat.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

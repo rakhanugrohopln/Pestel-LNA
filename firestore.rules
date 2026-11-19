@@ -1,0 +1,265 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerified() && request.auth.token.email == 'rakhan6b@gmail.com';
+    }
+
+    function hasUserDoc() {
+      return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (isVerified() && hasUserDoc() && userDoc().role in ['super_admin', 'corpu_admin']);
+    }
+
+    function isOrgMember(orgId) {
+      return isAdmin() || (isVerified() && hasUserDoc() && (
+        userDoc().primaryOrgId == orgId ||
+        (userDoc().orgScopeIds is list && orgId in userDoc().orgScopeIds)
+      ));
+    }
+
+    function isValidUserProfile(data, userId) {
+      return data.keys().hasAll(['uid', 'email', 'displayName', 'role', 'primaryOrgId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'email', 'displayName', 'role', 'primaryOrgId', 'orgScopeIds', 'createdAt', 'updatedAt'])
+        && data.uid is string && data.uid == userId && data.uid.size() <= 128
+        && data.email is string && data.email.size() >= 3 && data.email.size() <= 254
+        && data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 120
+        && data.role in ['super_admin', 'corpu_admin', 'directorate_admin', 'department_admin', 'unit_analyst', 'reviewer', 'executive_viewer']
+        && data.primaryOrgId is string && data.primaryOrgId.size() >= 1 && data.primaryOrgId.size() <= 128
+        && (!('orgScopeIds' in data) || (data.orgScopeIds is list && data.orgScopeIds.size() <= 25))
+        && data.createdAt is string && data.createdAt.size() <= 64
+        && data.updatedAt is string && data.updatedAt.size() <= 64;
+    }
+
+    function isValidOrganizationNode(data, orgId) {
+      return data.keys().hasAll(['id', 'name', 'slug', 'level', 'businessSegmentId', 'createdBy', 'createdAt'])
+        && data.keys().hasOnly(['id', 'name', 'slug', 'level', 'parentId', 'businessSegmentId', 'province', 'description', 'createdBy', 'createdAt'])
+        && data.id is string && data.id == orgId && isValidId(data.id)
+        && data.name is string && data.name.size() >= 2 && data.name.size() <= 160
+        && data.slug is string && data.slug.size() >= 2 && data.slug.size() <= 128 && data.slug.matches('^[a-z0-9\\-]+$')
+        && data.level in ['segment', 'directorate', 'department', 'unit']
+        && (!('parentId' in data) || (data.parentId is string && data.parentId.size() <= 128))
+        && data.businessSegmentId is string && data.businessSegmentId.size() >= 1 && data.businessSegmentId.size() <= 128
+        && (!('province' in data) || (data.province is string && data.province.size() <= 80))
+        && (!('description' in data) || (data.description is string && data.description.size() <= 1000))
+        && data.createdBy is string && data.createdBy.size() >= 1 && data.createdBy.size() <= 128
+        && data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    function isValidPestelIssue(data, issueId) {
+      return data.keys().hasAll(['id', 'title', 'summary', 'categories', 'severity', 'classification', 'status', 'ownerOrgId', 'createdBy', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['id', 'title', 'summary', 'sourceUrl', 'sourceTitle', 'sourcePublishedAt', 'categories', 'riskOrOpportunity', 'severity', 'classification', 'status', 'ownerOrgId', 'impactAnalysis', 'province', 'period', 'createdBy', 'verifiedBy', 'createdAt', 'updatedAt'])
+        && data.id is string && data.id == issueId && isValidId(data.id)
+        && data.title is string && data.title.size() >= 3 && data.title.size() <= 240
+        && data.summary is string && data.summary.size() >= 10 && data.summary.size() <= 4000
+        && (!('sourceUrl' in data) || (data.sourceUrl is string && data.sourceUrl.size() <= 1024))
+        && (!('sourceTitle' in data) || (data.sourceTitle is string && data.sourceTitle.size() <= 300))
+        && (!('sourcePublishedAt' in data) || (data.sourcePublishedAt is string && data.sourcePublishedAt.size() <= 64))
+        && data.categories is list && data.categories.size() >= 1 && data.categories.size() <= 6 && data.categories[0] is string
+        && (!('riskOrOpportunity' in data) || data.riskOrOpportunity in ['risk', 'opportunity', 'both'])
+        && data.severity in ['low', 'medium', 'high', 'critical']
+        && data.classification in ['public_shared', 'internal_restricted', 'confidential']
+        && data.status in ['ai_draft', 'in_review', 'verified', 'approved', 'rejected']
+        && data.ownerOrgId is string && isValidId(data.ownerOrgId)
+        && (!('impactAnalysis' in data) || (data.impactAnalysis is string && data.impactAnalysis.size() <= 4000))
+        && (!('province' in data) || (data.province is string && data.province.size() <= 80))
+        && (!('period' in data) || (data.period is string && data.period.size() <= 32))
+        && data.createdBy is string && data.createdBy.size() >= 1 && data.createdBy.size() <= 128
+        && (!('verifiedBy' in data) || (data.verifiedBy is string && data.verifiedBy.size() <= 128))
+        && data.createdAt is string && data.createdAt.size() <= 64
+        && data.updatedAt is string && data.updatedAt.size() <= 64;
+    }
+
+    function isValidIssueLink(data, linkId) {
+      return data.keys().hasAll(['id', 'issueId', 'ownerOrgId', 'targetOrgId', 'linkStatus', 'sharingApproved', 'createdBy', 'createdAt'])
+        && data.keys().hasOnly(['id', 'issueId', 'ownerOrgId', 'targetOrgId', 'linkStatus', 'sharingApproved', 'departmentImpactNote', 'createdBy', 'createdAt'])
+        && data.id is string && data.id == linkId && isValidId(data.id)
+        && data.issueId is string && isValidId(data.issueId)
+        && data.ownerOrgId is string && isValidId(data.ownerOrgId)
+        && data.targetOrgId is string && isValidId(data.targetOrgId)
+        && data.linkStatus in ['ai_proposed', 'in_review', 'verified', 'approved', 'not_relevant']
+        && data.sharingApproved is bool
+        && (!('departmentImpactNote' in data) || (data.departmentImpactNote is string && data.departmentImpactNote.size() <= 2000))
+        && data.createdBy is string && data.createdBy.size() >= 1 && data.createdBy.size() <= 128
+        && data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    function isValidLearningAssessment(data, assessmentId) {
+      return data.keys().hasAll(['id', 'kind', 'issueId', 'orgId', 'title', 'hasGapEvidence', 'status', 'createdBy', 'createdAt'])
+        && data.keys().hasOnly(['id', 'kind', 'issueId', 'orgId', 'title', 'competencyName', 'competencyCategory', 'hasGapEvidence', 'currentLevel', 'targetLevel', 'participantCount', 'priority', 'status', 'notes', 'createdBy', 'createdAt'])
+        && data.id is string && data.id == assessmentId && isValidId(data.id)
+        && data.kind in ['lna', 'cca', 'dna', 'tna']
+        && data.issueId is string && isValidId(data.issueId)
+        && data.orgId is string && isValidId(data.orgId)
+        && data.title is string && data.title.size() >= 3 && data.title.size() <= 240
+        && (!('competencyName' in data) || (data.competencyName is string && data.competencyName.size() <= 200))
+        && (!('competencyCategory' in data) || data.competencyCategory in ['core', 'technical', 'behavioral'])
+        && data.hasGapEvidence is bool
+        && (!('currentLevel' in data) || (data.currentLevel is number && data.currentLevel >= 0 && data.currentLevel <= 10))
+        && (!('targetLevel' in data) || (data.targetLevel is number && data.targetLevel >= 0 && data.targetLevel <= 10))
+        && (!('participantCount' in data) || (data.participantCount is number && data.participantCount >= 0 && data.participantCount <= 100000))
+        && (!('priority' in data) || data.priority in ['low', 'medium', 'high', 'critical'])
+        && data.status in ['draft', 'in_review', 'verified', 'approved']
+        && (!('notes' in data) || (data.notes is string && data.notes.size() <= 3000))
+        && data.createdBy is string && data.createdBy.size() >= 1 && data.createdBy.size() <= 128
+        && data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    function isValidLearningRecommendation(data, recId) {
+      return data.keys().hasAll(['id', 'assessmentId', 'issueId', 'orgId', 'programTitle', 'addieStage', 'deliveryMethods', 'status', 'createdBy', 'createdAt'])
+        && data.keys().hasOnly(['id', 'assessmentId', 'issueId', 'orgId', 'programTitle', 'learningPath', 'addieStage', 'deliveryMethods', 'targetAudience', 'estimatedParticipants', 'status', 'createdBy', 'createdAt'])
+        && data.id is string && data.id == recId && isValidId(data.id)
+        && data.assessmentId is string && isValidId(data.assessmentId)
+        && data.issueId is string && isValidId(data.issueId)
+        && data.orgId is string && isValidId(data.orgId)
+        && data.programTitle is string && data.programTitle.size() >= 3 && data.programTitle.size() <= 240
+        && (!('learningPath' in data) || (data.learningPath is string && data.learningPath.size() <= 240))
+        && data.addieStage in ['Analysis', 'Design', 'Development', 'Implementation', 'Evaluation']
+        && data.deliveryMethods is list && data.deliveryMethods.size() >= 1 && data.deliveryMethods.size() <= 10 && data.deliveryMethods[0] is string
+        && (!('targetAudience' in data) || (data.targetAudience is string && data.targetAudience.size() <= 200))
+        && (!('estimatedParticipants' in data) || (data.estimatedParticipants is number && data.estimatedParticipants >= 0 && data.estimatedParticipants <= 100000))
+        && data.status in ['ai_proposed', 'in_review', 'verified', 'approved', 'not_relevant']
+        && data.createdBy is string && data.createdBy.size() >= 1 && data.createdBy.size() <= 128
+        && data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    function isValidAuditLog(data, logId) {
+      return data.keys().hasAll(['id', 'actorUid', 'actorRole', 'action', 'resourceType', 'resourceId', 'createdAt'])
+        && data.keys().hasOnly(['id', 'actorUid', 'actorRole', 'action', 'resourceType', 'resourceId', 'orgId', 'details', 'createdAt'])
+        && data.id is string && data.id == logId && isValidId(data.id)
+        && data.actorUid is string && data.actorUid == request.auth.uid && data.actorUid.size() <= 128
+        && data.actorRole is string && data.actorRole.size() >= 1 && data.actorRole.size() <= 64
+        && data.action is string && data.action.size() >= 1 && data.action.size() <= 120
+        && data.resourceType is string && data.resourceType.size() >= 1 && data.resourceType.size() <= 64
+        && data.resourceId is string && data.resourceId.size() >= 1 && data.resourceId.size() <= 128
+        && (!('orgId' in data) || (data.orgId is string && data.orgId.size() <= 128))
+        && (!('details' in data) || (data.details is string && data.details.size() <= 1000))
+        && data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    match /users/{userId} {
+      allow get: if isVerified() && isValidId(userId) && (request.auth.uid == userId || isAdmin());
+      allow list: if isVerified() && (resource.data.uid == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerified() && isValidId(userId) && isValidUserProfile(incoming(), userId) && (
+        (isBootstrappedAdmin() && request.auth.uid == userId) ||
+        (request.auth.uid == userId && incoming().role == 'executive_viewer') ||
+        isAdmin()
+      );
+      allow update: if isVerified() && isValidId(userId) && isValidUserProfile(incoming(), userId) && (
+        isAdmin() ||
+        (request.auth.uid == userId && incoming().role == existing().role && incoming().primaryOrgId == existing().primaryOrgId && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'updatedAt']))
+      );
+      allow delete: if isAdmin() && isValidId(userId);
+    }
+
+    match /organizations/{orgId} {
+      allow get: if isVerified() && isValidId(orgId);
+      allow list: if isVerified() && resource.data.id is string;
+      allow create: if isAdmin() && isValidId(orgId) && isValidOrganizationNode(incoming(), orgId) && incoming().createdBy == request.auth.uid;
+      allow update: if isAdmin() && isValidId(orgId) && isValidOrganizationNode(incoming(), orgId) && incoming().createdBy == existing().createdBy && incoming().createdAt == existing().createdAt;
+      allow delete: if isAdmin() && isValidId(orgId);
+    }
+
+    match /pestel_issues/{issueId} {
+      allow get: if isVerified() && isValidId(issueId) && (existing().classification == 'public_shared' || isOrgMember(existing().ownerOrgId));
+      allow list: if isVerified() && (resource.data.classification == 'public_shared' || resource.data.createdBy == request.auth.uid || request.auth.token.email == 'rakhan6b@gmail.com');
+      allow create: if isVerified() && isValidId(issueId) && isValidPestelIssue(incoming(), issueId) && incoming().createdBy == request.auth.uid && isOrgMember(incoming().ownerOrgId);
+      allow update: if isVerified() && isValidId(issueId) && isValidPestelIssue(incoming(), issueId)
+        && incoming().createdBy == existing().createdBy
+        && incoming().createdAt == existing().createdAt
+        && incoming().ownerOrgId == existing().ownerOrgId
+        && (
+          isAdmin() ||
+          (isOrgMember(existing().ownerOrgId) && existing().status != 'approved' && incoming().diff(existing()).affectedKeys().hasOnly(['title', 'summary', 'categories', 'riskOrOpportunity', 'severity', 'classification', 'status', 'impactAnalysis', 'verifiedBy', 'updatedAt']))
+        );
+      allow delete: if isAdmin() && isValidId(issueId);
+    }
+
+    match /issue_organization_links/{linkId} {
+      allow get: if isVerified() && isValidId(linkId) && (existing().sharingApproved == true || isOrgMember(existing().ownerOrgId) || isOrgMember(existing().targetOrgId));
+      allow list: if isVerified() && (resource.data.sharingApproved == true || resource.data.createdBy == request.auth.uid || request.auth.token.email == 'rakhan6b@gmail.com');
+      allow create: if isVerified() && isValidId(linkId) && isValidIssueLink(incoming(), linkId) && incoming().createdBy == request.auth.uid && exists(/databases/$(database)/documents/pestel_issues/$(incoming().issueId));
+      allow update: if isVerified() && isValidId(linkId) && isValidIssueLink(incoming(), linkId)
+        && incoming().issueId == existing().issueId
+        && incoming().ownerOrgId == existing().ownerOrgId
+        && incoming().createdBy == existing().createdBy
+        && incoming().createdAt == existing().createdAt
+        && (
+          isAdmin() ||
+          (isOrgMember(existing().targetOrgId) && incoming().diff(existing()).affectedKeys().hasOnly(['linkStatus', 'departmentImpactNote'])) ||
+          (isOrgMember(existing().ownerOrgId) && incoming().diff(existing()).affectedKeys().hasOnly(['linkStatus', 'sharingApproved']))
+        );
+      allow delete: if isAdmin() && isValidId(linkId);
+    }
+
+    match /learning_assessments/{assessmentId} {
+      allow get: if isVerified() && isValidId(assessmentId) && (isOrgMember(existing().orgId) || existing().status == 'approved');
+      allow list: if isVerified() && (resource.data.status == 'approved' || resource.data.createdBy == request.auth.uid || request.auth.token.email == 'rakhan6b@gmail.com');
+      allow create: if isVerified() && isValidId(assessmentId) && isValidLearningAssessment(incoming(), assessmentId) && incoming().createdBy == request.auth.uid && isOrgMember(incoming().orgId) && exists(/databases/$(database)/documents/pestel_issues/$(incoming().issueId));
+      allow update: if isVerified() && isValidId(assessmentId) && isValidLearningAssessment(incoming(), assessmentId)
+        && incoming().issueId == existing().issueId
+        && incoming().orgId == existing().orgId
+        && incoming().createdBy == existing().createdBy
+        && incoming().createdAt == existing().createdAt
+        && (
+          isAdmin() ||
+          (isOrgMember(existing().orgId) && existing().status != 'approved' && incoming().diff(existing()).affectedKeys().hasOnly(['title', 'competencyName', 'competencyCategory', 'hasGapEvidence', 'currentLevel', 'targetLevel', 'participantCount', 'priority', 'status', 'notes']))
+        );
+      allow delete: if isAdmin() && isValidId(assessmentId);
+    }
+
+    match /learning_recommendations/{recommendationId} {
+      allow get: if isVerified() && isValidId(recommendationId) && (isOrgMember(existing().orgId) || existing().status == 'approved');
+      allow list: if isVerified() && (resource.data.status == 'approved' || resource.data.createdBy == request.auth.uid || request.auth.token.email == 'rakhan6b@gmail.com');
+      allow create: if isVerified() && isValidId(recommendationId) && isValidLearningRecommendation(incoming(), recommendationId) && incoming().createdBy == request.auth.uid && isOrgMember(incoming().orgId) && exists(/databases/$(database)/documents/learning_assessments/$(incoming().assessmentId));
+      allow update: if isVerified() && isValidId(recommendationId) && isValidLearningRecommendation(incoming(), recommendationId)
+        && incoming().assessmentId == existing().assessmentId
+        && incoming().issueId == existing().issueId
+        && incoming().orgId == existing().orgId
+        && incoming().createdBy == existing().createdBy
+        && incoming().createdAt == existing().createdAt
+        && (
+          isAdmin() ||
+          (isOrgMember(existing().orgId) && existing().status != 'approved' && incoming().diff(existing()).affectedKeys().hasOnly(['programTitle', 'learningPath', 'addieStage', 'deliveryMethods', 'targetAudience', 'estimatedParticipants', 'status']))
+        );
+      allow delete: if isAdmin() && isValidId(recommendationId);
+    }
+
+    match /audit_logs/{logId} {
+      allow get: if isAdmin() && isValidId(logId);
+      allow list: if isVerified() && request.auth.token.email == 'rakhan6b@gmail.com';
+      allow create: if isVerified() && isValidId(logId) && isValidAuditLog(incoming(), logId);
+      allow update, delete: if false;
+    }
+  }
+}

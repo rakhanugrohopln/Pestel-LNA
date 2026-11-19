@@ -1,0 +1,883 @@
+{
+  "users": [
+    {
+      "uid": "u-superadmin",
+      "email": "superadmin@plncorpu.local",
+      "displayName": "Super Administrator Sistem",
+      "role": "super_admin",
+      "primaryOrgId": "dir-corpu",
+      "orgScopeIds": [
+        "dir-corpu",
+        "seg-penunjang-korporat"
+      ],
+      "passwordHash": "602701c657dda0c4645e5e30e2351adba2a4de75614c77ea2a7d73d87800a5f0b7532ef95e734a6cdc6a0bad7da82ee412340e858b6dcfd6c4e78e4cbd3f44e6",
+      "passwordSalt": "3e8d3c427a666aaee217058b11bf876d",
+      "isStagingAccount": true
+    },
+    {
+      "uid": "u-corpu-admin",
+      "email": "corpu.admin@plncorpu.local",
+      "displayName": "Administrator PLN CorpU",
+      "role": "corpu_admin",
+      "primaryOrgId": "dept-corpu-lvc",
+      "orgScopeIds": [
+        "dir-corpu",
+        "dept-corpu-lvc"
+      ],
+      "passwordHash": "6242c279a7497c5444065a67457e1c8972de66aaff995fd1ec0df271f01d27f999da66f669b8be4679d52b00b1639821ed1336fd5b32fded0f5c92cbec9cd125",
+      "passwordSalt": "27dbc8c66bf0bc7aedee55e26aa75acb",
+      "isStagingAccount": true
+    },
+    {
+      "uid": "u-dept-pembangkitan",
+      "email": "admin.pembangkitan@plncorpu.local",
+      "displayName": "Department Admin Pembangkitan",
+      "role": "department_admin",
+      "primaryOrgId": "dept-pembangkitan-ops",
+      "orgScopeIds": [
+        "dept-pembangkitan-ops",
+        "unit-pltu-jawa-tengah"
+      ],
+      "passwordHash": "0eb3bce807cd7e85992f95ae8712ec3d8c32ad79183405d8c84ba00f38e90abfdc08240f220f507f69470c1325dc081d05e4acfb85d896c6a0d073242e59e1ff",
+      "passwordSalt": "9efc632ce35923943f9c73f9cc3109d3",
+      "isStagingAccount": true
+    },
+    {
+      "uid": "u-dept-transmisi",
+      "email": "admin.transmisi@plncorpu.local",
+      "displayName": "Department Admin Transmisi",
+      "role": "department_admin",
+      "primaryOrgId": "dept-transmisi-grid",
+      "orgScopeIds": [
+        "dept-transmisi-grid"
+      ],
+      "passwordHash": "88e1d7e9ee08a68c6519f820a5af27e557645362d1e083ced1e589e3a5198737d152516444b20d1c420263f555f921a812c985b717f1a053e13a52301cadb032",
+      "passwordSalt": "c9ff34c59fc31b3a903df15261ff8b3a",
+      "isStagingAccount": true
+    },
+    {
+      "uid": "u-dept-distribusi",
+      "email": "admin.distribusi@plncorpu.local",
+      "displayName": "Department Admin Distribusi",
+      "role": "department_admin",
+      "primaryOrgId": "dept-distribusi-digital",
+      "orgScopeIds": [
+        "dept-distribusi-digital"
+      ],
+      "passwordHash": "7223de902a27f9ac15e86f1ed52bf166e7a9535ead6c520cda689fa4eb02d26c090d58e036ebb8a1c2102e01f7a061e42ad89c8b46119d1894e7b96e1656fbb0",
+      "passwordSalt": "a5fa52c42fbec63eb259fcec800dceed",
+      "isStagingAccount": true
+    },
+    {
+      "uid": "u-reviewer",
+      "email": "reviewer@plncorpu.local",
+      "displayName": "Reviewer Kompetensi Korporat",
+      "role": "reviewer",
+      "primaryOrgId": "dept-corpu-lvc",
+      "orgScopeIds": [
+        "dept-corpu-lvc"
+      ],
+      "passwordHash": "f4fed79ac84a9e74a796d75a44cfee00edce12680a3ee9168da1f0a8bf6d6f724089b82421c8924eca928846f6da7f90e68cd9d51fa07631d7d7c2dc723a1108",
+      "passwordSalt": "313b4fc81bccf813287930208feeb4cf",
+      "isStagingAccount": true
+    },
+    {
+      "uid": "u-exec-viewer",
+      "email": "executive@plncorpu.local",
+      "displayName": "Executive Viewer Strategis",
+      "role": "executive_viewer",
+      "primaryOrgId": "dir-corpu",
+      "orgScopeIds": [
+        "dir-corpu"
+      ],
+      "passwordHash": "9a3807c40b42b79ac630a9b977456387488c3e5785ac65f3a82e5ce514d01edfa14d8048cc46f6902991226e44ccb55f7db9062d7332d66fa3bcacd12156a8fe",
+      "passwordSalt": "489ce90f4d7c36405d0f5da931db60ee",
+      "isStagingAccount": true
+    }
+  ],
+  "organizations": [
+    {
+      "id": "seg-energi-primer",
+      "name": "Energi Primer",
+      "slug": "energi-primer",
+      "level": "segment",
+      "businessSegmentId": "seg-energi-primer",
+      "province": "Nasional",
+      "description": "Pengelolaan ketersediaan energi primer, pasokan bahan bakar, logistik energi, biomassa, transisi energi, dan keamanan rantai pasok.",
+      "scopeExamples": [
+        "Ketersediaan energi primer",
+        "Pasokan bahan bakar",
+        "Logistik energi",
+        "Biomassa",
+        "Transisi energi",
+        "Keamanan rantai pasok"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "seg-pembangkitan",
+      "name": "Pembangkitan",
+      "slug": "pembangkitan",
+      "level": "segment",
+      "businessSegmentId": "seg-pembangkitan",
+      "province": "Nasional",
+      "description": "Operasional pembangkit, keandalan & efisiensi pembangkitan, energi baru terbarukan (EBT), teknologi pembangkit, dan pemeliharaan aset.",
+      "scopeExamples": [
+        "Operasional pembangkit",
+        "Keandalan pembangkit",
+        "Efisiensi pembangkitan",
+        "Energi baru terbarukan",
+        "Teknologi pembangkit",
+        "Pemeliharaan aset"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "seg-transmisi",
+      "name": "Transmisi dan Penyaluran",
+      "slug": "transmisi",
+      "level": "segment",
+      "businessSegmentId": "seg-transmisi",
+      "province": "Nasional",
+      "description": "Sistem transmisi tenaga listrik, gardu induk, keandalan jaringan, perencanaan sistem, Smart Grid, dan teknologi jaringan listrik.",
+      "scopeExamples": [
+        "Sistem transmisi",
+        "Gardu induk",
+        "Keandalan jaringan",
+        "Perencanaan sistem",
+        "Smart Grid",
+        "Teknologi jaringan listrik"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "seg-distribusi",
+      "name": "Distribusi",
+      "slug": "distribusi",
+      "level": "segment",
+      "businessSegmentId": "seg-distribusi",
+      "province": "Nasional",
+      "description": "Jaringan distribusi tegangan menengah/rendah, keandalan pasokan, gangguan & pemeliharaan, digitalisasi distribusi, dan pengembangan jaringan.",
+      "scopeExamples": [
+        "Jaringan distribusi",
+        "Keandalan pasokan",
+        "Gangguan dan pemeliharaan",
+        "Digitalisasi distribusi",
+        "Efisiensi operasional",
+        "Pengembangan jaringan"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "seg-retail-niaga",
+      "name": "Retail dan Niaga",
+      "slug": "retail-niaga",
+      "level": "segment",
+      "businessSegmentId": "seg-retail-niaga",
+      "province": "Nasional",
+      "description": "Pelayanan pelanggan, penjualan listrik, pengalaman pelanggan, transformasi layanan digital, layanan energi, dan pengembangan bisnis retail.",
+      "scopeExamples": [
+        "Pelayanan pelanggan",
+        "Penjualan listrik",
+        "Pengalaman pelanggan",
+        "Transformasi layanan digital",
+        "Layanan energi",
+        "Pengembangan bisnis retail"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "seg-penunjang-ketenagalistrikan",
+      "name": "Penunjang Ketenagalistrikan",
+      "slug": "penunjang-ketenagalistrikan",
+      "level": "segment",
+      "businessSegmentId": "seg-penunjang-ketenagalistrikan",
+      "province": "Nasional",
+      "description": "Engineering, konstruksi dan pembangunan, penelitian dan pengembangan, teknologi informasi, sertifikasi, serta pendidikan dan pelatihan.",
+      "scopeExamples": [
+        "Engineering",
+        "Konstruksi dan pembangunan",
+        "Penelitian dan pengembangan",
+        "Teknologi informasi",
+        "Sertifikasi",
+        "Pendidikan dan pelatihan"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "seg-penunjang-korporat",
+      "name": "Penunjang Korporat",
+      "slug": "penunjang-korporat",
+      "level": "segment",
+      "businessSegmentId": "seg-penunjang-korporat",
+      "province": "DKI Jakarta",
+      "description": "Human Capital, Keuangan, Pengadaan, Legal, Manajemen Risiko, Administrasi, dan PLN Corporate University.",
+      "scopeExamples": [
+        "Human Capital",
+        "Keuangan",
+        "Pengadaan",
+        "Legal",
+        "Manajemen risiko",
+        "Administrasi",
+        "Corporate University"
+      ],
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-energi-primer",
+      "name": "Direktorat Manajemen Energi Primer",
+      "slug": "manajemen-energi-primer",
+      "level": "directorate",
+      "parentId": "seg-energi-primer",
+      "businessSegmentId": "seg-energi-primer",
+      "province": "DKI Jakarta",
+      "description": "Koordinasi strategi pasokan energi primer, batubara, gas, dan biomassa.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-ep-biomassa",
+      "name": "Departemen Rantai Pasok Biomassa & Transisi Energi",
+      "slug": "energi-primer-biomassa",
+      "level": "department",
+      "parentId": "dir-energi-primer",
+      "businessSegmentId": "seg-energi-primer",
+      "province": "Kalimantan Timur",
+      "description": "Pengembangan logistik dan kontrak pasokan biomassa untuk co-firing PLTU.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-pembangkitan",
+      "name": "Direktorat Manajemen Pembangkitan",
+      "slug": "manajemen-pembangkitan",
+      "level": "directorate",
+      "parentId": "seg-pembangkitan",
+      "businessSegmentId": "seg-pembangkitan",
+      "province": "DKI Jakarta",
+      "description": "Pengawasan keandalan operasi, efisiensi pembangkit, dan transisi energi terbarukan.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-pembangkitan-ops",
+      "name": "Departemen Operasional & Pemeliharaan Pembangkit",
+      "slug": "pembangkitan-operasional",
+      "level": "department",
+      "parentId": "dir-pembangkitan",
+      "businessSegmentId": "seg-pembangkitan",
+      "province": "Jawa Tengah",
+      "description": "Operasional harian, predictive maintenance, dan optimasi heat rate pembangkit.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "unit-pltu-jawa-tengah",
+      "name": "Unit Pembangkitan Jawa Tengah",
+      "slug": "up-jawa-tengah",
+      "level": "unit",
+      "parentId": "dept-pembangkitan-ops",
+      "businessSegmentId": "seg-pembangkitan",
+      "province": "Jawa Tengah",
+      "description": "Unit kerja operasional pembangkit dan implementasi co-firing biomassa.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-transmisi",
+      "name": "Direktorat Transmisi dan Perencanaan Sistem",
+      "slug": "transmisi-perencanaan-sistem",
+      "level": "directorate",
+      "parentId": "seg-transmisi",
+      "businessSegmentId": "seg-transmisi",
+      "province": "DKI Jakarta",
+      "description": "Perencanaan sistem tenaga, interkoneksi antar-pulau, dan pengoperasian sistem penyaluran.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-transmisi-grid",
+      "name": "Departemen Sistem Transmisi & Smart Grid",
+      "slug": "transmisi-smart-grid",
+      "level": "department",
+      "parentId": "dir-transmisi",
+      "businessSegmentId": "seg-transmisi",
+      "province": "Jawa Barat",
+      "description": "Pengembangan gardu induk digital, sistem proteksi IEC 61850, dan kestabilan frekuensi.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-distribusi",
+      "name": "Direktorat Distribusi Tenaga Listrik",
+      "slug": "distribusi-tenaga-listrik",
+      "level": "directorate",
+      "parentId": "seg-distribusi",
+      "businessSegmentId": "seg-distribusi",
+      "province": "DKI Jakarta",
+      "description": "Pengelolaan keandalan SAIDI/SAIFI jaringan distribusi dan integrasi smart meter.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-distribusi-digital",
+      "name": "Departemen Digitalisasi Distribusi & AMI",
+      "slug": "distribusi-digital-ami",
+      "level": "department",
+      "parentId": "dir-distribusi",
+      "businessSegmentId": "seg-distribusi",
+      "province": "Jawa Timur",
+      "description": "Implementasi Advanced Metering Infrastructure dan otomasi jaringan distribusi.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-retail-niaga",
+      "name": "Direktorat Retail dan Niaga",
+      "slug": "retail-dan-niaga",
+      "level": "directorate",
+      "parentId": "seg-retail-niaga",
+      "businessSegmentId": "seg-retail-niaga",
+      "province": "DKI Jakarta",
+      "description": "Transformasi pengalaman pelanggan, layanan EV/SPKLU, dan produk energi hijau.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-retail-digital",
+      "name": "Departemen Transformasi Layanan Digital & EV",
+      "slug": "retail-layanan-digital-ev",
+      "level": "department",
+      "parentId": "dir-retail-niaga",
+      "businessSegmentId": "seg-retail-niaga",
+      "province": "DKI Jakarta",
+      "description": "Pengembangan ekosistem layanan pelanggan digital dan infrastruktur SPKLU.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-teknologi-rekayasa",
+      "name": "Direktorat Enjiniring & Teknologi Informasi",
+      "slug": "enjiniring-teknologi-informasi",
+      "level": "directorate",
+      "parentId": "seg-penunjang-ketenagalistrikan",
+      "businessSegmentId": "seg-penunjang-ketenagalistrikan",
+      "province": "DKI Jakarta",
+      "description": "Pusat enjiniring, riset teknologi ketenagalistrikan, dan keamanan sistem TI/OT.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-ti-ot",
+      "name": "Departemen Teknologi Informasi & Keamanan Siber OT",
+      "slug": "teknologi-informasi-siber",
+      "level": "department",
+      "parentId": "dir-teknologi-rekayasa",
+      "businessSegmentId": "seg-penunjang-ketenagalistrikan",
+      "province": "DKI Jakarta",
+      "description": "Integrasi platform TI korporat, arsitektur data, dan keamanan siber sistem SCADA.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dir-corpu",
+      "name": "Direktorat Corporate University & Human Capital",
+      "slug": "pln-corporate-university",
+      "level": "directorate",
+      "parentId": "seg-penunjang-korporat",
+      "businessSegmentId": "seg-penunjang-korporat",
+      "province": "Jawa Barat",
+      "description": "Pusat pengolahan Learning Value Chain, LNA/CCA/DNA/TNA, dan sertifikasi kompetensi PLN.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "dept-corpu-lvc",
+      "name": "Departemen Learning Value Chain & Curriculum",
+      "slug": "corpu-learning-value-chain",
+      "level": "department",
+      "parentId": "dir-corpu",
+      "businessSegmentId": "seg-penunjang-korporat",
+      "province": "Jawa Barat",
+      "description": "Konsolidasi analisis kebutuhan pembelajaran lintas unit bisnis dan desain kurikulum ADDIE.",
+      "createdBy": "system",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    }
+  ],
+  "newsSources": [
+    {
+      "id": "src-pln",
+      "name": "Portal Resmi Siaran Pers PLN",
+      "domain": "web.pln.co.id",
+      "feedUrl": "https://web.pln.co.id/media/siaran-pers",
+      "keywords": [
+        "smart grid",
+        "ebt",
+        "transisi energi",
+        "biomassa",
+        "spklu",
+        "ruptl"
+      ],
+      "enabled": true,
+      "lastCheckedAt": "2026-11-18T08:00:00.000Z",
+      "createdBy": "u-corpu-admin"
+    },
+    {
+      "id": "src-esdm",
+      "name": "Kementerian ESDM RI — Berita Ketenagalistrikan",
+      "domain": "www.esdm.go.id",
+      "feedUrl": "https://www.esdm.go.id/id/media-center/arsip-berita",
+      "keywords": [
+        "ketenagalistrikan",
+        "dekarbonisasi",
+        "tkdn",
+        "energi baru terbarukan"
+      ],
+      "enabled": true,
+      "lastCheckedAt": "2026-11-18T08:00:00.000Z",
+      "createdBy": "u-corpu-admin"
+    },
+    {
+      "id": "src-regulasi",
+      "name": "JDIH Ketenagalistrikan & Regulasi Nasional",
+      "domain": "jdih.esdm.go.id",
+      "feedUrl": "https://jdih.esdm.go.id",
+      "keywords": [
+        "peraturan menteri",
+        "tarif",
+        "emisi",
+        "keselamatan ketenagalistrikan"
+      ],
+      "enabled": true,
+      "lastCheckedAt": "2026-11-18T08:00:00.000Z",
+      "createdBy": "u-corpu-admin"
+    }
+  ],
+  "issues": [
+    {
+      "id": "iss-smart-grid-2026",
+      "title": "Akselerasi Implementasi Smart Grid & Gardu Induk Digital Interkoneksi",
+      "summary": "Modernisasi jaringan transmisi untuk mengakomodasi penetrasi pembangkit EBT intermiten membutuhkan otomasi gardu induk berbasis IEC 61850, sistem proteksi adaptif, serta integrasi telemetri real-time lintas unit transmisi, distribusi, dan keamanan siber OT.",
+      "sourceUrl": "https://web.pln.co.id/media/siaran-pers",
+      "sourceTitle": "Pengembangan Smart Grid untuk Stabilitas Integrasi Energi Terbarukan",
+      "sourcePublishedAt": "2026-10-14",
+      "categories": [
+        "Technological",
+        "Environmental"
+      ],
+      "riskOrOpportunity": "both",
+      "severity": "critical",
+      "classification": "public_shared",
+      "status": "approved",
+      "ownerOrgId": "dept-transmisi-grid",
+      "impactAnalysis": "Meningkatkan kompleksitas pengendalian frekuensi sistem dan menuntut kompetensi rekayasa digital substation serta integrasi keamanan siber SCADA.",
+      "province": "Jawa Barat",
+      "period": "2026-Q4",
+      "createdBy": "u-dept-transmisi",
+      "verifiedBy": "u-reviewer",
+      "createdAt": "2026-10-15T09:00:00.000Z",
+      "updatedAt": "2026-10-20T14:00:00.000Z"
+    },
+    {
+      "id": "iss-biomassa-cofiring",
+      "title": "Peningkatan Mandat Co-Firing Biomassa & Keamanan Rantai Pasok Energi Primer",
+      "summary": "Target bauran co-firing biomassa pada PLTU memerlukan penjaminan pasokan pelet kayu/sekam yang stabil serta kesiapan operasional boiler dan penanganan bahan bakar di unit pembangkitan.",
+      "sourceUrl": "https://www.esdm.go.id/id/media-center/arsip-berita",
+      "sourceTitle": "Kebijakan Co-Firing Biomassa Menuju Net Zero Emission",
+      "sourcePublishedAt": "2026-10-22",
+      "categories": [
+        "Environmental",
+        "Political",
+        "Economic"
+      ],
+      "riskOrOpportunity": "both",
+      "severity": "high",
+      "classification": "public_shared",
+      "status": "verified",
+      "ownerOrgId": "dept-pembangkitan-ops",
+      "impactAnalysis": "Unit pembangkitan perlu menguasai kalibrasi rasio co-firing dan mitigasi slagging/fouling, sementara Energi Primer mengelola kontrak logistik biomassa regional.",
+      "province": "Jawa Tengah",
+      "period": "2026-Q4",
+      "createdBy": "u-dept-pembangkitan",
+      "verifiedBy": "u-reviewer",
+      "createdAt": "2026-10-24T10:00:00.000Z",
+      "updatedAt": "2026-10-28T11:30:00.000Z"
+    },
+    {
+      "id": "iss-ami-distribusi",
+      "title": "Rollout Smart Meter (AMI) & Penurunan Susut Jaringan Distribusi",
+      "summary": "Penerapan Advanced Metering Infrastructure (AMI) di segmen distribusi membuka visibilitas beban real-time dan mempercepat deteksi anomali pemakaian listrik.",
+      "sourceUrl": "https://web.pln.co.id/media/siaran-pers",
+      "sourceTitle": "Digitalisasi Distribusi dengan Advanced Metering Infrastructure",
+      "sourcePublishedAt": "2026-11-02",
+      "categories": [
+        "Technological",
+        "Economic"
+      ],
+      "riskOrOpportunity": "opportunity",
+      "severity": "high",
+      "classification": "public_shared",
+      "status": "approved",
+      "ownerOrgId": "dept-distribusi-digital",
+      "impactAnalysis": "Memerlukan kapabilitas analitik data beban distribusi dan pemeliharaan perangkat komunikasi lapangan.",
+      "province": "Jawa Timur",
+      "period": "2026-Q4",
+      "createdBy": "u-dept-distribusi",
+      "verifiedBy": "u-reviewer",
+      "createdAt": "2026-11-03T08:30:00.000Z",
+      "updatedAt": "2026-11-06T16:15:00.000Z"
+    },
+    {
+      "id": "iss-regulasi-tkdn-ebt",
+      "title": "Penyesuaian Regulasi TKDN Infrastruktur Energi Terbarukan & Pengadaan",
+      "summary": "Perubahan ketentuan tingkat komponen dalam negeri untuk proyek PLTS dan gardu induk berdampak pada spesifikasi pengadaan, manajemen kontrak legal, dan jadwal konstruksi.",
+      "sourceUrl": "https://jdih.esdm.go.id",
+      "sourceTitle": "Pembaruan Kebijakan TKDN Proyek Ketenagalistrikan EBT",
+      "sourcePublishedAt": "2026-11-05",
+      "categories": [
+        "Legal",
+        "Political"
+      ],
+      "riskOrOpportunity": "risk",
+      "severity": "medium",
+      "classification": "public_shared",
+      "status": "in_review",
+      "ownerOrgId": "dept-corpu-lvc",
+      "impactAnalysis": "Memerlukan penyelarasan kompetensi evaluasi vendor pengadaan strategis dan kepatuhan regulasi kontrak EPC.",
+      "province": "DKI Jakarta",
+      "period": "2026-Q4",
+      "createdBy": "u-corpu-admin",
+      "createdAt": "2026-11-07T09:15:00.000Z",
+      "updatedAt": "2026-11-07T09:15:00.000Z"
+    },
+    {
+      "id": "iss-pembangkitan-rahasia-audit",
+      "title": "Evaluasi Internal Keandalan Governor Turbin Unit Pembangkitan",
+      "summary": "Dokumen internal sementara terkait temuan inspeksi keandalan governor turbin pada fase pra-asesmen teknis unit pembangkitan.",
+      "categories": [
+        "Technological"
+      ],
+      "riskOrOpportunity": "risk",
+      "severity": "high",
+      "classification": "confidential",
+      "status": "ai_draft",
+      "ownerOrgId": "dept-pembangkitan-ops",
+      "impactAnalysis": "Draft rahasia internal Pembangkitan sebelum verifikasi teknis dan sebelum persetujuan berbagi lintas unit.",
+      "province": "Jawa Tengah",
+      "period": "2026-Q4",
+      "createdBy": "u-dept-pembangkitan",
+      "createdAt": "2026-11-12T07:45:00.000Z",
+      "updatedAt": "2026-11-12T07:45:00.000Z"
+    }
+  ],
+  "links": [
+    {
+      "id": "lnk-sg-distribusi",
+      "issueId": "iss-smart-grid-2026",
+      "ownerOrgId": "dept-transmisi-grid",
+      "targetOrgId": "dept-distribusi-digital",
+      "linkStatus": "approved",
+      "sharingApproved": true,
+      "departmentImpactNote": "Koordinasi integrasi FLISR dan data beban gardu distribusi ke pusat kendali Smart Grid.",
+      "createdBy": "u-dept-transmisi",
+      "createdAt": "2026-10-18T10:00:00.000Z"
+    },
+    {
+      "id": "lnk-sg-ti",
+      "issueId": "iss-smart-grid-2026",
+      "ownerOrgId": "dept-transmisi-grid",
+      "targetOrgId": "dept-ti-ot",
+      "linkStatus": "verified",
+      "sharingApproved": true,
+      "departmentImpactNote": "Integrasi keamanan siber OT dan arsitektur telemetri IEC 61850.",
+      "createdBy": "u-dept-transmisi",
+      "createdAt": "2026-10-18T10:05:00.000Z"
+    },
+    {
+      "id": "lnk-bio-ep",
+      "issueId": "iss-biomassa-cofiring",
+      "ownerOrgId": "dept-pembangkitan-ops",
+      "targetOrgId": "dept-ep-biomassa",
+      "linkStatus": "approved",
+      "sharingApproved": true,
+      "departmentImpactNote": "Penyelarasan spesifikasi kalor dan kadar air pasokan biomassa regional.",
+      "createdBy": "u-dept-pembangkitan",
+      "createdAt": "2026-10-26T09:00:00.000Z"
+    }
+  ],
+  "assessments": [
+    {
+      "id": "lna-sg-01",
+      "kind": "lna",
+      "issueId": "iss-smart-grid-2026",
+      "orgId": "dept-transmisi-grid",
+      "title": "LNA Transformasi Operasi Gardu Induk Digital",
+      "competencyName": "Smart Grid & Digital Substation Systems",
+      "competencyCategory": "technical",
+      "hasGapEvidence": true,
+      "currentLevel": 2,
+      "targetLevel": 4,
+      "participantCount": 140,
+      "priority": "critical",
+      "status": "approved",
+      "notes": "Hasil asesmen kesiapan engineer proteksi menunjukkan kesenjangan pada konfigurasi IEC 61850 SCL dan GOOSE messaging.",
+      "createdBy": "u-dept-transmisi",
+      "createdAt": "2026-10-21T09:00:00.000Z"
+    },
+    {
+      "id": "cca-sg-01",
+      "kind": "cca",
+      "issueId": "iss-smart-grid-2026",
+      "orgId": "dept-transmisi-grid",
+      "title": "CCA Standar Kompetensi Engineer Proteksi & SCADA",
+      "competencyName": "IEC 61850 & Wide-Area Monitoring Protection",
+      "competencyCategory": "technical",
+      "hasGapEvidence": true,
+      "currentLevel": 2,
+      "targetLevel": 4,
+      "participantCount": 140,
+      "priority": "high",
+      "status": "verified",
+      "notes": "Pemetaan direktori kompetensi inti dan teknis jabatan fungsional ahli proteksi transmisi.",
+      "createdBy": "u-dept-transmisi",
+      "createdAt": "2026-10-22T09:00:00.000Z"
+    },
+    {
+      "id": "dna-sg-01",
+      "kind": "dna",
+      "issueId": "iss-smart-grid-2026",
+      "orgId": "dept-ti-ot",
+      "title": "DNA Kapabilitas Keamanan Siber OT & Integrasi Telemetri",
+      "competencyName": "OT/ICS Cybersecurity Architecture",
+      "competencyCategory": "technical",
+      "hasGapEvidence": true,
+      "currentLevel": 2,
+      "targetLevel": 4,
+      "participantCount": 65,
+      "priority": "critical",
+      "status": "verified",
+      "notes": "Kebutuhan kapabilitas masa depan untuk zero-trust network segmentation antara SCADA dan jaringan TI korporat.",
+      "createdBy": "u-corpu-admin",
+      "createdAt": "2026-10-23T11:00:00.000Z"
+    },
+    {
+      "id": "tna-sg-01",
+      "kind": "tna",
+      "issueId": "iss-smart-grid-2026",
+      "orgId": "dept-transmisi-grid",
+      "title": "TNA Program Sertifikasi Rekayasa IEC 61850 & Smart Grid",
+      "competencyName": "IEC 61850 Substation Engineering",
+      "competencyCategory": "technical",
+      "hasGapEvidence": true,
+      "currentLevel": 2,
+      "targetLevel": 4,
+      "participantCount": 90,
+      "priority": "critical",
+      "status": "approved",
+      "notes": "Terverifikasi oleh reviewer berdasarkan data asesmen kompetensi lapangan unit transmisi.",
+      "tnaScope": "corporate",
+      "professionGroup": "Enjiniring & Operasi Transmisi",
+      "createdBy": "u-dept-transmisi",
+      "createdAt": "2026-10-25T13:00:00.000Z"
+    },
+    {
+      "id": "lna-bio-01",
+      "kind": "lna",
+      "issueId": "iss-biomassa-cofiring",
+      "orgId": "dept-pembangkitan-ops",
+      "title": "LNA Kesiapan Operasi & Pemeliharaan Boiler Co-Firing",
+      "competencyName": "Biomass Co-Firing Combustion Control",
+      "competencyCategory": "technical",
+      "hasGapEvidence": true,
+      "currentLevel": 3,
+      "targetLevel": 4,
+      "participantCount": 110,
+      "priority": "high",
+      "status": "verified",
+      "notes": "Diperlukan peningkatan keterampilan penanganan slagging dan efisiensi pembakaran campuran biomassa.",
+      "createdBy": "u-dept-pembangkitan",
+      "createdAt": "2026-10-29T10:00:00.000Z"
+    },
+    {
+      "id": "tna-ami-01",
+      "kind": "tna",
+      "issueId": "iss-ami-distribusi",
+      "orgId": "dept-distribusi-digital",
+      "title": "TNA Analitik Data AMI & Manajemen Susut Distribusi",
+      "competencyName": "AMI Telemetry & Distribution Loss Analytics",
+      "competencyCategory": "technical",
+      "hasGapEvidence": true,
+      "currentLevel": 2,
+      "targetLevel": 4,
+      "participantCount": 160,
+      "priority": "high",
+      "status": "approved",
+      "notes": "Disetujui untuk batch pembelajaran regional Jawa Timur dan Jawa Barat.",
+      "tnaScope": "unit",
+      "professionGroup": "Operasi & Niaga Distribusi",
+      "createdBy": "u-dept-distribusi",
+      "createdAt": "2026-11-05T14:00:00.000Z"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-smart-grid-01",
+      "assessmentId": "tna-sg-01",
+      "issueId": "iss-smart-grid-2026",
+      "orgId": "dept-transmisi-grid",
+      "programTitle": "Akademi Proteksi & Otomasi Gardu Induk Digital (IEC 61850)",
+      "learningPath": "Jalur Kompetensi Smart Grid & Digital Substation",
+      "addieStage": "Design",
+      "deliveryMethods": [
+        "Blended Learning",
+        "Simulasi",
+        "Pembelajaran Berbasis Kasus"
+      ],
+      "targetAudience": "Engineer Proteksi, SCADA & Pemeliharaan Gardu Induk",
+      "estimatedParticipants": 90,
+      "catalogRef": "CORPU-TRM-61850",
+      "status": "approved",
+      "createdBy": "u-corpu-admin",
+      "createdAt": "2026-10-27T10:00:00.000Z"
+    },
+    {
+      "id": "rec-ami-01",
+      "assessmentId": "tna-ami-01",
+      "issueId": "iss-ami-distribusi",
+      "orgId": "dept-distribusi-digital",
+      "programTitle": "Bootcamp Analitik Data AMI & Penurunan Susut Jaringan",
+      "learningPath": "Jalur Digitalisasi Distribusi",
+      "addieStage": "Development",
+      "deliveryMethods": [
+        "Digital Learning",
+        "Gamification",
+        "Quiz",
+        "Coaching"
+      ],
+      "targetAudience": "Analis Operasi Distribusi & Petugas Pengendalian Susut",
+      "estimatedParticipants": 160,
+      "catalogRef": "CORPU-DIS-AMI26",
+      "status": "approved",
+      "createdBy": "u-corpu-admin",
+      "createdAt": "2026-11-06T17:00:00.000Z"
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-lvc-01",
+      "title": "Kerangka Learning Value Chain PLN Corporate University (Slide 6-8)",
+      "docUrl": "https://web.pln.co.id",
+      "docType": "Pedoman Metodologi",
+      "classification": "public_shared",
+      "ownerOrgId": "dept-corpu-lvc",
+      "linkedIssueId": "iss-smart-grid-2026",
+      "createdBy": "u-corpu-admin",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    },
+    {
+      "id": "doc-pembangkitan-conf",
+      "title": "Laporan Pra-Asesmen Internal Turbin Pembangkitan (Rahasia)",
+      "docUrl": "https://internal-ref.pln.local/draft-governor",
+      "docType": "Dokumen Teknis Internal",
+      "classification": "confidential",
+      "ownerOrgId": "dept-pembangkitan-ops",
+      "linkedIssueId": "iss-pembangkitan-rahasia-audit",
+      "createdBy": "u-dept-pembangkitan",
+      "createdAt": "2026-11-12T08:00:00.000Z"
+    }
+  ],
+  "sharingPermissions": [
+    {
+      "id": "perm-sg-dist",
+      "sourceOrgId": "dept-transmisi-grid",
+      "targetOrgId": "dept-distribusi-digital",
+      "resourceType": "pestel_issue",
+      "resourceId": "iss-smart-grid-2026",
+      "status": "approved",
+      "requestedBy": "u-dept-transmisi",
+      "approvedBy": "u-reviewer",
+      "createdAt": "2026-10-19T08:00:00.000Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud-5d42da95-1e4",
+      "actorUid": "u-dept-transmisi",
+      "actorEmail": "admin.transmisi@plncorpu.local",
+      "actorRole": "department_admin",
+      "action": "STAGING_QC_LOGIN",
+      "resourceType": "session",
+      "resourceId": "u-dept-transmisi",
+      "orgId": "dept-transmisi-grid",
+      "details": "QC login staging menggunakan akun peran department_admin.",
+      "createdAt": "2026-11-19T02:58:50.310Z"
+    },
+    {
+      "id": "aud-689da83e-d29",
+      "actorUid": "u-dept-transmisi",
+      "actorEmail": "admin.transmisi@plncorpu.local",
+      "actorRole": "department_admin",
+      "action": "ACCESS_DENIED_WORKSPACE",
+      "resourceType": "workspace",
+      "resourceId": "dept-pembangkitan-ops",
+      "orgId": "dept-pembangkitan-ops",
+      "details": "Penolakan akses lintas organisasi dari admin.transmisi@plncorpu.local (dept-transmisi-grid) ke Departemen Operasional & Pemeliharaan Pembangkit.",
+      "createdAt": "2026-11-19T02:57:52.373Z"
+    },
+    {
+      "id": "aud-13cb8b15-762",
+      "actorUid": "u-dept-transmisi",
+      "actorEmail": "admin.transmisi@plncorpu.local",
+      "actorRole": "department_admin",
+      "action": "STAGING_QC_LOGIN",
+      "resourceType": "session",
+      "resourceId": "u-dept-transmisi",
+      "orgId": "dept-transmisi-grid",
+      "details": "QC login staging menggunakan akun peran department_admin.",
+      "createdAt": "2026-11-19T02:57:49.757Z"
+    },
+    {
+      "id": "aud-14f50280-15a",
+      "actorUid": "u-superadmin",
+      "actorEmail": "superadmin@plncorpu.local",
+      "actorRole": "super_admin",
+      "action": "AUTH_LOGOUT",
+      "resourceType": "session",
+      "resourceId": "u-superadmin",
+      "orgId": "dir-corpu",
+      "details": "Pengguna keluar dari sesi.",
+      "createdAt": "2026-11-19T02:57:49.601Z"
+    },
+    {
+      "id": "aud-4eacc28a-1ed",
+      "actorUid": "u-superadmin",
+      "actorEmail": "superadmin@plncorpu.local",
+      "actorRole": "super_admin",
+      "action": "STAGING_QC_LOGIN",
+      "resourceType": "session",
+      "resourceId": "u-superadmin",
+      "orgId": "dir-corpu",
+      "details": "QC login staging menggunakan akun peran super_admin.",
+      "createdAt": "2026-11-19T02:57:38.943Z"
+    },
+    {
+      "id": "aud-init-01",
+      "actorUid": "u-superadmin",
+      "actorEmail": "superadmin@plncorpu.local",
+      "actorRole": "super_admin",
+      "action": "SYSTEM_BOOTSTRAP",
+      "resourceType": "organization",
+      "resourceId": "dir-corpu",
+      "orgId": "dir-corpu",
+      "details": "Inisialisasi struktur awal 7 bidang bisnis PLN dan kerangka Learning Value Chain.",
+      "createdAt": "2026-11-18T08:00:00.000Z"
+    }
+  ]
+}
